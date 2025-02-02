@@ -1,0 +1,52 @@
+/* Reset CSS optimisé */
+
+/* Restauration de la normalité pour tous les éléments */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* Suppression des styles par défaut des éléments de liste */
+ol, ul {
+    list-style: none;
+}
+
+/* Supprimer les guillemets par défaut dans les citations */
+blockquote, q {
+    quotes: none;
+}
+
+/* Éviter l'affichage des guillemets dans les citations */
+blockquote::before, blockquote::after,
+q::before, q::after {
+    content: '';
+}
+
+/* Suppression des bordures par défaut des tables */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Meilleure gestion des éléments de texte */
+body {
+    line-height: 1;
+    font-family: sans-serif; /* Définir une police sans-serif de base */
+}
+
+/* Représentation des éléments HTML5 modernes */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+/* Ajout d'une gestion du centrage via Flexbox pour certains cas */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
