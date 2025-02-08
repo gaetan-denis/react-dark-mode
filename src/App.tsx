@@ -1,45 +1,47 @@
-import {pages} from '../config.ts';
+import { pages } from '../config.ts';
 import Navbar from "./components/Navbar.tsx";
 import './styles/reset.css';
 import './styles/App.css';
-import {createContext, useEffect, useState} from "react";
+import { createContext, useEffect, useState } from "react";
 
-
+// Définition du type pour le contexte du thème
 interface ThemeContextType {
     isDarkTheme: boolean;
     toggleTheme: () => void;
 }
-export const ThemeContext = createContext<ThemeContextType | null>(null);
+
+// Création du contexte avec une valeur par défaut
+export const ThemeContext = createContext<ThemeContextType>({
+    isDarkTheme: false,
+    toggleTheme: () => {},
+});
 
 function App() {
-
-    const [isDarkTheme, setDarkTheme] = useState(false);
+    // Récupère la préférence de thème depuis le localStorage
+    const storedTheme = localStorage.getItem('theme');
+    const [isDarkTheme, setDarkTheme] = useState<boolean>(
+        storedTheme === 'dark' ? true : false
+    );
 
     const toggleTheme = () => {
-        setDarkTheme(prevTheme => !prevTheme);
-    }
+        setDarkTheme((prevTheme) => !prevTheme);
+    };
 
-    useEffect(() => {
+   useEffect(() => {
         if (isDarkTheme) {
-            document.body.classList.add('dark-theme');
-            document.body.classList.remove('light-theme');
-
-
-
-
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
         } else {
-            document.body.classList.add('light-theme');
-            document.body.classList.remove('dark-theme');
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
         }
     }, [isDarkTheme]);
 
-
     return (
-        <ThemeContext.Provider value={{isDarkTheme, toggleTheme}}>
-            <Navbar pages={pages}/>
+        <ThemeContext.Provider value={{ isDarkTheme, toggleTheme }}>
+            <Navbar pages={pages} />
         </ThemeContext.Provider>
-
-    )
+    );
 }
 
-export default App
+export default App;
