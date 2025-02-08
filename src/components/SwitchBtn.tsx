@@ -5,7 +5,7 @@ const SwitchBtn = () => {
     const context = useContext(ThemeContext);
 
     if (!context) {
-        throw new Error("Le contexte Theme n'est pas disponible.");
+        return <p>Erreur : le contexte du thème n'est pas disponible.</p>;
     }
 
     const { isDarkTheme, toggleTheme } = context;
